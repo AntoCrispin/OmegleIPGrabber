@@ -1,8 +1,3 @@
-//To get a apikey go to ipgeolocation.io and create a account 
-//Then go to app.ipgeolocation.io and copy your Api Key and paste it 
-
-let apiKey = "//Your api Key";
-
 window.oRTCPeerConnection =
   window.oRTCPeerConnection || window.RTCPeerConnection;
 
@@ -25,7 +20,7 @@ window.RTCPeerConnection = function (...args) {
 };
 
 let getLocation = async (ip) => {
-  let url = `https://api.ipgeolocation.io/ipgeo?apiKey=${apiKey}&ip=${ip}`;
+  let url = `https://ipinfo.io/${ip}`;
 
   await fetch(url).then((response) =>
     response.json().then((json) => {
@@ -33,12 +28,13 @@ let getLocation = async (ip) => {
       const output = `
           ---------------------
           ip: ${json.ip}
-          Country: ${json.country_name}
-          State: ${json.state_prov}
+          Country Code: ${json.country}
+          Region: ${json.region}
           City: ${json.city}
-          District: ${json.district}
-          Lat / Long: (${json.latitude}, ${json.longitude})
-          isp: ${json.isp}
+          Lat / Long: (${json.loc})
+          isp: ${json.org}
+          Postal Code: ${json.postal}
+          Timezone: ${json.timezone}
           ---------------------
           `;
       console.log(output);
